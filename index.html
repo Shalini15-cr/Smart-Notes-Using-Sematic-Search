@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Notes</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 550px; margin: 50px auto; padding: 0 16px; }
+    textarea { width: 100%; padding: 10px; font-size: 15px; border: 1px solid #ccc; border-radius: 8px; resize: vertical; }
+    button { padding: 10px 20px; background: #47d1d8; color: lab(26.06% 58.92 -84.4); border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin: 6px 4px 0 0; }
+    .result { background: hwb(195 15% 22%); padding: 12px; border-radius: 8px; margin-top: 8px; font-size: 14px; }
+    h1 { font-size: 22px; }
+  </style>
+</head>
+<body>
+  <h1> Smart Notes Search</h1>
+
+  <p><strong>Add a note:</strong></p>
+  <textarea id="note" rows="3" placeholder="Write anything..."></textarea>
+  <button onclick="addNote()">Save Note</button>
+
+  <hr style="margin:24px 0">
+
+  <p><strong>Search by meaning:</strong></p>
+  <textarea id="query" rows="2" placeholder="e.g. I felt happy today"></textarea>
+  <button onclick="search()">Search</button>
+
+  <div id="results"></div>
+
+  <script>
+  const API = "https://YOUR-RENDER-URL.onrender.com";
+
+    async function addNote() {
+      const text = document.getElementById("note").value;
+      await fetch(`${API}/add`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ text })
+      });
+      alert("Note saved!");
+      document.getElementById("note").value = "";
+    }
+
+    async function search() {
+      const text = document.getElementById("query").value;
+      const res = await fetch(`${API}/search`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ text })
+      });
+      const data = await res.json();
+      document.getElementById("results").innerHTML =
+        data.results.length
+          ? data.results.map(r => `<div class="result">${r}</div>`).join("")
+          : "<div class='result'>No similar notes found.</div>";
+    }
+  </script>
+</body>
+</html>
