@@ -1,0 +1,66 @@
+# 📝 Smart Notes Semantic Search
+
+## 🎯 Project Name
+Smart Notes Semantic Search using Endee Vector Database
+
+## 🖥️ Existing System
+Traditional note apps use keyword search.
+Example: Search "sad" → only finds notes with exact word "sad".
+Missing notes that say "terrible day" or "feeling low".
+
+## 🎯 Main Objective
+Build a semantic search system that finds notes by MEANING
+not just exact keywords using AI embeddings and Endee
+vector database.
+
+## 🥅 Goal
+User types "feeling upset" → system finds
+"I had a terrible day at office" ✅
+Even though the words are completely different!
+
+##  What is Implemented
+- 10 sample notes loaded into Endee vector database
+- AI converts text to vectors using sentence-transformers
+- Semantic search finds similar meaning notes
+- User can add their own notes
+- Simple clean frontend UI
+
+##  System Architecture
+User Query
+    ↓
+Frontend (HTML + JS)
+    ↓
+Backend API (FastAPI + Python)
+    ↓
+Sentence Transformer (converts text → vector)
+    ↓
+Endee Vector Database (finds similar vectors)
+    ↓
+Returns matching notes 
+
+## 🛠️ Tech Stack
+| Layer      | Technology                    |
+|------------|-------------------------------|
+| Vector DB  | Endee (endee-io/endee)        |
+| Embeddings | sentence-transformers         |
+| Backend    | FastAPI (Python)              |
+| Frontend   | HTML + CSS + JavaScript       |
+| Deployment | Render (backend) + Netlify    |
+
+## 🚀 Live Demo
+- Frontend: https://your-netlify-url.netlify.app
+- Backend: https://smart-notes-using-sematic-search.onrender.com
+
+## ⚙️ Local Setup
+pip install -r requirements.txt
+uvicorn app:main --reload
+
+## 📂 Project Structure
+smart-notes-search/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── render.yaml
+├── frontend/
+│   └── index.html
+└── README.md
